@@ -33,13 +33,17 @@ namespace IOC
 
             services.AddScoped<IBaseRepository<Livro>, LivroRepository>();
             services.AddScoped<IBaseRepository<Autor>, AutorRepository>();
+            services.AddScoped<IBaseRepository<Assunto>, AssuntoRepository>();
 
             services.AddScoped<ILivroService, LivroService>();
             services.AddScoped<IAutorService, AutorService>();
+            services.AddScoped<IAssuntoService, AssuntoService>();
+            
 
             // Configurar FluentValidation
             services.AddTransient<FluentValidation.IValidator<Livro>, LivroValidator>();
             services.AddTransient<FluentValidation.IValidator<Autor>, AutorValidator>();
+            services.AddTransient<FluentValidation.IValidator<Assunto>, AssuntoValidator>();
             
 
 

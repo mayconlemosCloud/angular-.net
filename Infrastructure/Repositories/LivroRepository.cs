@@ -22,15 +22,19 @@ namespace Infrastructure.Repositories
             return await _context.Livros
                 .Include(l => l.LivroAutores)
                     .ThenInclude(la => la.Autor)
+                .Include(l => l.LivroAssuntos)
+                    .ThenInclude(la => la.Assunto)
                 .ToListAsync();
         }
 
         public async Task<Livro?> GetByIdAsync(int id)
         {
-            // Inclui autores ao buscar livro por id
+        
             return await _context.Livros
                 .Include(l => l.LivroAutores)
                     .ThenInclude(la => la.Autor)
+                .Include(l => l.LivroAssuntos)
+                    .ThenInclude(la => la.Assunto)
                 .FirstOrDefaultAsync(l => l.Codl == id);
         }
 

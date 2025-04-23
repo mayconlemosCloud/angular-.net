@@ -22,7 +22,10 @@ public class LivroValidator : AbstractValidator<Livro>
         RuleFor(x => x.AnoPublicacao)
             .NotEmpty().WithMessage("O ano de publicação é obrigatório.")
             .MaximumLength(4)
-            .Matches(@"^[a-zA-ZÀ-ÿ\s]+$").WithMessage("Não pode conter caracteres especiais.");
+            .Matches(@"^\d{4}$").WithMessage("O ano de publicação deve ter 4 dígitos.")
+            .Must(x => int.TryParse(x, out int ano) && ano >= 1900 && ano <= DateTime.Now.Year);
+
+           
 
     }
 }

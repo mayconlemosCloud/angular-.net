@@ -7,6 +7,6 @@ public class LivroRequestDto
     public string Editora { get; set; }
     public int Edicao { get; set; }
     public string AnoPublicacao { get; set; }
-    public ICollection<LivroAutor> LivroAutores { get; set; }
-    public ICollection<LivroAssunto> LivroAssuntos { get; set; }
+    public List<int> LivroAutores { get; set; }
+    public List<int> LivroAssuntos { get; set; }
 }
