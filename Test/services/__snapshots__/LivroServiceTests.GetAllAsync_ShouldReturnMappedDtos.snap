@@ -1,0 +1,29 @@
+﻿[
+  {
+    "Codl": 1,
+    "Titulo": "Livro 1",
+    "Editora": "Editora 1",
+    "Edicao": 1,
+    "AnoPublicacao": "2020",
+    "Autores": null,
+    "Assuntos": null
+  },
+  {
+    "Codl": 2,
+    "Titulo": "Livro 2",
+    "Editora": "Editora 2",
+    "Edicao": 2,
+    "AnoPublicacao": "2021",
+    "Autores": null,
+    "Assuntos": null
+  },
+  {
+    "Codl": 3,
+    "Titulo": "Livro 3",
+    "Editora": "Editora 3",
+    "Edicao": 3,
+    "AnoPublicacao": "2022",
+    "Autores": null,
+    "Assuntos": null
+  }
+]
