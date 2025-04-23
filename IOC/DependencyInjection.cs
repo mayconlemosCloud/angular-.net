@@ -8,6 +8,9 @@ using Application.Services.Interfaces;
 using Application.Services;
 using Application.Mappings;
 using FluentValidation;
+using Domain.Entities;
+using Infrastructure.Repositories;
+using Application.Validations;
 
 namespace IOC
 {
@@ -28,7 +31,17 @@ namespace IOC
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
-           
+            services.AddScoped<IBaseRepository<Livro>, LivroRepository>();
+            services.AddScoped<IBaseRepository<Autor>, AutorRepository>();
+
+            services.AddScoped<ILivroService, LivroService>();
+            services.AddScoped<IAutorService, AutorService>();
+
+            // Configurar FluentValidation
+            services.AddTransient<FluentValidation.IValidator<Livro>, LivroValidator>();
+            services.AddTransient<FluentValidation.IValidator<Autor>, AutorValidator>();
+            
+
 
             return services;
         }

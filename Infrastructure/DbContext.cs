@@ -20,7 +20,9 @@ namespace Infrastructure
             
             modelBuilder.Entity<Livro>(entity =>
             {
-                entity.HasKey(e => e.Cod);
+                entity.HasKey(e => e.Codl);
+                entity.Property(e => e.Codl)
+                    .ValueGeneratedOnAdd();
                 entity.Property(e => e.Titulo)
                     .HasMaxLength(40)
                     .IsRequired();
@@ -36,6 +38,8 @@ namespace Infrastructure
             modelBuilder.Entity<Autor>(entity =>
             {
                 entity.HasKey(e => e.CodAu);
+                entity.Property(e => e.CodAu)
+                    .ValueGeneratedOnAdd();
                 entity.Property(e => e.Nome)
                     .HasMaxLength(40)
                     .IsRequired();
@@ -45,6 +49,8 @@ namespace Infrastructure
             modelBuilder.Entity<Assunto>(entity =>
             {
                 entity.HasKey(e => e.CodAs);
+                entity.Property(e => e.CodAs)
+                    .ValueGeneratedOnAdd();
                 entity.Property(e => e.Descricao)
                     .HasMaxLength(20)
                     .IsRequired();
@@ -52,12 +58,12 @@ namespace Infrastructure
 
        
             modelBuilder.Entity<LivroAutor>()
-                .HasKey(la => new { la.LivroCod, la.AutorCodAu });
+                .HasKey(la => new { la.LivroCodl, la.AutorCodAu });
 
             modelBuilder.Entity<LivroAutor>()
                 .HasOne(la => la.Livro)
                 .WithMany(l => l.LivroAutores)
-                .HasForeignKey(la => la.LivroCod);
+                .HasForeignKey(la => la.LivroCodl);
 
             modelBuilder.Entity<LivroAutor>()
                 .HasOne(la => la.Autor)
@@ -66,12 +72,12 @@ namespace Infrastructure
 
       
             modelBuilder.Entity<LivroAssunto>()
-                .HasKey(la => new { la.LivroCod, la.AssuntoCodAs });
+                .HasKey(la => new { la.LivroCodl, la.AssuntoCodAs });
 
             modelBuilder.Entity<LivroAssunto>()
                 .HasOne(la => la.Livro)
                 .WithMany(l => l.LivroAssuntos)
-                .HasForeignKey(la => la.LivroCod);
+                .HasForeignKey(la => la.LivroCodl);
 
             modelBuilder.Entity<LivroAssunto>()
                 .HasOne(la => la.Assunto)

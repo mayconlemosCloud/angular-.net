@@ -7,6 +7,7 @@ public class AutorValidator : AbstractValidator<Autor>
     {
         RuleFor(x => x.Nome)
             .NotEmpty().WithMessage("O nome do autor é obrigatório.")
-            .MaximumLength(40);
+            .MaximumLength(40)
+            .Matches(@"^[a-zA-ZÀ-ÿ\s]+$").WithMessage("Não pode conter caracteres especiais.");
     }
 }

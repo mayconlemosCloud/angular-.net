@@ -1,4 +1,6 @@
+using Application.Dtos;
 using AutoMapper;
+using Domain.Entities;
 
 namespace Application.Mappings
 {
@@ -6,7 +8,10 @@ namespace Application.Mappings
     {
         public AutoMapperProfile()
         {
-        
+            CreateMap<LivroRequestDto, Livro>();
+            CreateMap<Livro, LivroResponseDto>();
+            CreateMap<AutorRequestDto, Autor>();
+            CreateMap<Autor, AutorResponseDto>();
         }
     }
 }

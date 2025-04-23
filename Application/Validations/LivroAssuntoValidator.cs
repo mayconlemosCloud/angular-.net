@@ -6,7 +6,7 @@ public class LivroAssuntoValidator : AbstractValidator<LivroAssunto>
 {
     public LivroAssuntoValidator()
     {
-        RuleFor(x => x.LivroCod)
+        RuleFor(x => x.LivroCodl)
             .GreaterThan(0).WithMessage("O código do livro deve ser maior que zero.");
 
         RuleFor(x => x.AssuntoCodAs)
