@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Dtos;
 using Application.Services.Interfaces;
 using System.Threading.Tasks;
+using Microsoft.Reporting.NETCore; // Adicione este using
 
 namespace API.Controllers
 {
@@ -124,6 +125,23 @@ namespace API.Controllers
             {
                 return StatusCode(500, new { message = ex.Message });
             }
+        }
+
+        [HttpGet("relatorio")]
+        public async Task<IActionResult> GetRelatorioRdlc([FromServices] ILivroService livroService)
+        {
+            var dados = await livroService.GetRelatorioAsync();
+        
+            var rdlcPath = Path.Combine(Directory.GetCurrentDirectory(), "Reports", "LivrosRelatorio.rdlc");
+            using var localReport = new LocalReport();
+            localReport.LoadReportDefinition(System.IO.File.OpenRead(rdlcPath));
+            localReport.DataSources.Clear();
+
+            localReport.DataSources.Add(new ReportDataSource("LivroRelatorioDto", dados.ToList()));
+
+            var result = localReport.Render("PDF");
+
+            return File(result, "application/pdf", "RelatorioLivros_RDLC.pdf");
         }
     }
 }

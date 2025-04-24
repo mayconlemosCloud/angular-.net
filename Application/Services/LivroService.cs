@@ -5,6 +5,7 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Repositories;
 using FluentValidation;
+using System.Linq;
 
 namespace Application.Services
 {
@@ -71,6 +72,73 @@ namespace Application.Services
             }
             await _repository.DeleteAsync(livro.Codl);
             return true;
+        }
+
+        public async Task<IEnumerable<LivroRelatorioDto>> GetRelatorioAsync()
+        {
+            var livros = (await _repository.GetAllAsync()).ToList();
+            var totalLivros = livros.Count;
+
+            // Total de autores distintos
+            var totalAutores = livros
+                .SelectMany(l => l.LivroAutores ?? Enumerable.Empty<LivroAutor>())
+                .Select(la => la.Autor?.CodAu)
+                .Where(codAu => codAu != null)
+                .Distinct()
+                .Count();
+
+            // Média de livros por autor
+            var livrosPorAutor = livros
+                .SelectMany(l => l.LivroAutores ?? Enumerable.Empty<LivroAutor>())
+                .GroupBy(la => la.Autor?.CodAu)
+                .Select(g => g.Count())
+                .ToList();
+            double mediaLivrosPorAutor = livrosPorAutor.Count > 0 ? livrosPorAutor.Average() : 0;
+
+            // Autor com mais livros
+            var autorMaisLivros = livros
+                .SelectMany(l => l.LivroAutores ?? Enumerable.Empty<LivroAutor>())
+                .GroupBy(la => la.Autor)
+                .OrderByDescending(g => g.Count())
+                .FirstOrDefault();
+            string nomeAutorMaisLivros = autorMaisLivros?.Key?.Nome ?? "";
+            int qtdAutorMaisLivros = autorMaisLivros?.Count() ?? 0;
+
+            // Livro mais antigo/recente
+            var livrosComAno = livros
+                .Where(l => int.TryParse(l.AnoPublicacao, out _))
+                .Select(l => new { Livro = l, Ano = int.Parse(l.AnoPublicacao) })
+                .ToList();
+            var livroMaisAntigo = livrosComAno.OrderBy(l => l.Ano).FirstOrDefault();
+            var livroMaisRecente = livrosComAno.OrderByDescending(l => l.Ano).FirstOrDefault();
+
+          
+
+            // Livros sem autores
+            int livrosSemAutores = livros.Count(l => l.LivroAutores == null || !l.LivroAutores.Any());
+
+            // Livros com múltiplos autores
+            int livrosComMultiplosAutores = livros.Count(l => (l.LivroAutores?.Count() ?? 0) > 1);
+
+            
+
+            var relatorio = new LivroRelatorioDto
+            {
+                TotalLivros = totalLivros,
+                TotalAutores = totalAutores,
+                MediaLivrosPorAutor = mediaLivrosPorAutor,
+                NomeAutorMaisLivros = nomeAutorMaisLivros,
+                QtdAutorMaisLivros = qtdAutorMaisLivros,
+                LivroMaisAntigo = livroMaisAntigo?.Livro?.Titulo,
+                AnoLivroMaisAntigo = livroMaisAntigo?.Ano,
+                LivroMaisRecente = livroMaisRecente?.Livro?.Titulo,
+                AnoLivroMaisRecente = livroMaisRecente?.Ano,
+                LivrosSemAutores = livrosSemAutores,
+                LivrosComMultiplosAutores = livrosComMultiplosAutores            
+            };
+
+
+            return new List<LivroRelatorioDto> { relatorio };
         }
     }
 }
