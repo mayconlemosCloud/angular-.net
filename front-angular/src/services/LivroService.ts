@@ -27,4 +27,8 @@ export class LivroService implements RepositoryType {
   postTransaction(data: any) {
     return this.repository.postTransaction(data);
   }
+
+  getRelatorio() {
+    return this.repository.getRelatorio();
+  }
 }

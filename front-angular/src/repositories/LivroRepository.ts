@@ -35,4 +35,8 @@ export class LivroRepository {
   postTransaction(data: any): Observable<any> {
     return this.http.post<any>(`${this.rota}/transaction`, data);
   }
+
+  getRelatorio(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.rota}/relatorio`);
+  }
 }

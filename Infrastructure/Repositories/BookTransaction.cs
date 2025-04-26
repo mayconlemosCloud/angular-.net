@@ -28,9 +28,9 @@ namespace Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<BookTransaction>> GetAllAsync()
+        public async Task<IEnumerable<BookTransaction>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.BookTransactions.ToListAsync();
         }
 
         public Task<BookTransaction?> GetByIdAsync(int id)

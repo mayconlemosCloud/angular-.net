@@ -1,0 +1,27 @@
+<h1 class="text-2xl font-bold mb-4">Dashboard</h1>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+  <div class="bg-white shadow-md rounded-lg p-4">
+    <h3 class="text-lg font-bold">Total de Livros</h3>
+    <p class="text-gray-700">{{ data?.totalLivros }}</p>
+  </div>
+  <div class="bg-white shadow-md rounded-lg p-4">
+    <h3 class="text-lg font-bold">Total de Autores</h3>
+    <p class="text-gray-700">{{ data?.totalAutores }}</p>
+  </div>
+  <div class="bg-white shadow-md rounded-lg p-4">
+    <h3 class="text-lg font-bold">Livro Mais Antigo</h3>
+    <p class="text-gray-700">{{ data?.livroMaisAntigo }} ({{ data?.anoLivroMaisAntigo }})</p>
+  </div>
+  <div class="bg-white shadow-md rounded-lg p-4">
+    <h3 class="text-lg font-bold">Livro Mais Recente</h3>
+    <p class="text-gray-700">{{ data?.livroMaisRecente }} ({{ data?.anoLivroMaisRecente }})</p>
+  </div>
+  <div class="bg-white shadow-md rounded-lg p-4">
+    <h3 class="text-lg font-bold">Livros com Múltiplos Autores</h3>
+    <p class="text-gray-700">{{ data?.livrosComMultiplosAutores }}</p>
+  </div>
+  <div class="bg-white shadow-md rounded-lg p-4">
+    <h3 class="text-lg font-bold">Total de Compras</h3>
+    <p class="text-gray-700">{{ data?.totalCompras }}</p>
+  </div>
+</div>

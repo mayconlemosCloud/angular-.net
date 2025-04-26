@@ -150,10 +150,10 @@ namespace API.Controllers
         }
         
 
-        [HttpGet("relatorio")]
-        public async Task<IActionResult> GetRelatorioRdlc([FromServices] ILivroService livroService)
+        [HttpGet("relatorio/pdf")]
+        public async Task<IActionResult> GetRelatorioRdlc()
         {
-            var dados = await livroService.GetRelatorioAsync();
+            var dados = await _livroService.GetRelatorioAsync();
         
             var rdlcPath = Path.Combine(Directory.GetCurrentDirectory(), "Reports", "LivrosRelatorio.rdlc");
             using var localReport = new LocalReport();
@@ -165,6 +165,22 @@ namespace API.Controllers
             var result = localReport.Render("PDF");
 
             return File(result, "application/pdf", "RelatorioLivros_RDLC.pdf");
+        }
+
+
+        [HttpGet("relatorio")]
+        public async Task<IActionResult> GetRelatorio()
+        { 
+            try
+            {
+                var dados = await _livroService.GetRelatorioAsync();
+                return Ok(dados);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+           
         }
     }
 }

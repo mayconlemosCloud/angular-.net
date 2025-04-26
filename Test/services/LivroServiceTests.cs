@@ -19,6 +19,10 @@ public class LivroServiceTests
     private readonly Mock<IValidator<Livro>> _validatorMock = new();
     private readonly Mock<IValidator<BookTransaction>> _validatorTransactionMock = new();
     private readonly Mock<IBaseRepository<BookTransaction>> _repositoryTransactionMock = new();
+
+    private readonly Mock<IBaseRepository<Autor>> _repositoryAutor = new();
+
+    private readonly Mock<IBaseRepository<Assunto>> _repositoryAssunto = new();
     private readonly LivroService _service;
 
     public LivroServiceTests()
@@ -28,7 +32,9 @@ public class LivroServiceTests
             _mapperMock.Object,
             _validatorMock.Object,
             _repositoryTransactionMock.Object,
-            _validatorTransactionMock.Object
+            _validatorTransactionMock.Object,
+            _repositoryAutor.Object,
+            _repositoryAssunto.Object
         );
     }
 

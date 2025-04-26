@@ -13,24 +13,33 @@ namespace Application.Services
     {
         private readonly IBaseRepository<Livro> _repository;
 
+        private readonly IBaseRepository<Autor> _AutorRepository;
+
+        private readonly IBaseRepository<Assunto> _AssuntoRepository;
         private readonly IBaseRepository<BookTransaction> _repositoryTransaction;
         private readonly IMapper _mapper;
         private readonly IValidator<Livro> _validator;
         private readonly IValidator<BookTransaction> _validatorTransaction;
 
-        public LivroService(IBaseRepository<Livro> repository, IMapper mapper, IValidator<Livro> validator, IBaseRepository<BookTransaction> repositoryTransaction, IValidator<BookTransaction> validatorTransaction)
-        {
-            _repositoryTransaction = repositoryTransaction;
-            _validatorTransaction = validatorTransaction;
-            _repositoryTransaction = repositoryTransaction;
-            _validatorTransaction = validatorTransaction;
+        public LivroService(IBaseRepository<Livro> repository, IMapper mapper, IValidator<Livro> validator, IBaseRepository<BookTransaction> repositoryTransaction, IValidator<BookTransaction> validatorTransaction, IBaseRepository<Autor> autorRepository, IBaseRepository<Assunto> assuntoRepository)
         {
             _repository = repository;
             _mapper = mapper;
             _validator = validator;
             _repositoryTransaction = repositoryTransaction;
             _validatorTransaction = validatorTransaction;
-            
+            _AutorRepository = autorRepository;
+            _AssuntoRepository = assuntoRepository;
+            _AutorRepository = autorRepository;
+            _AssuntoRepository = assuntoRepository;
+        {
+            _repository = repository;
+            _mapper = mapper;
+            _validator = validator;
+            _repositoryTransaction = repositoryTransaction;
+            _validatorTransaction = validatorTransaction;
+            _AutorRepository = autorRepository;
+            _AssuntoRepository = assuntoRepository;
         }
         }
 
@@ -98,73 +107,44 @@ namespace Application.Services
         }
         
 
+
         public async Task<IEnumerable<LivroRelatorioDto>> GetRelatorioAsync()
         {
-            var livros = (await _repository.GetAllAsync()).ToList();
-            var totalLivros = livros.Count;
+            var livros = await _repository.GetAllAsync();
 
-       
-            var totalAutores = livros
-                .SelectMany(l => l.LivroAutores ?? Enumerable.Empty<LivroAutor>())
-                .Select(la => la.Autor?.CodAu)
-                .Where(codAu => codAu != null)
-                .Distinct()
-                .Count();
+            var totalLivros = livros.ToList().Count(); 
 
-            
-            var livrosPorAutor = livros
-                .SelectMany(l => l.LivroAutores ?? Enumerable.Empty<LivroAutor>())
-                .GroupBy(la => la.Autor?.CodAu)
-                .Select(g => g.Count())
-                .ToList();
-            double mediaLivrosPorAutor = livrosPorAutor.Count > 0 ? livrosPorAutor.Average() : 0;
 
-           
-            var autorMaisLivros = livros
-                .SelectMany(l => l.LivroAutores ?? Enumerable.Empty<LivroAutor>())
-                .GroupBy(la => la.Autor)
-                .OrderByDescending(g => g.Count())
-                .FirstOrDefault();
-            string nomeAutorMaisLivros = autorMaisLivros?.Key?.Nome ?? "";
-            int qtdAutorMaisLivros = autorMaisLivros?.Count() ?? 0;
+            var Autores = await _AutorRepository.GetAllAsync();
+            var totalAutores = Autores.Count();   
 
- 
-            var livrosComAno = livros
-                .Where(l => int.TryParse(l.AnoPublicacao, out _))
-                .Select(l => new { Livro = l, Ano = int.Parse(l.AnoPublicacao) })
-                .ToList();
-            var livroMaisAntigo = livrosComAno.OrderBy(l => l.Ano).FirstOrDefault();
-            var livroMaisRecente = livrosComAno.OrderByDescending(l => l.Ano).FirstOrDefault();
+            var Assuntos = await _AssuntoRepository.GetAllAsync();
+            var totalAssuntos = Assuntos.Count();     
 
-          
 
-          
-            int livrosSemAutores = livros.Count(l => l.LivroAutores == null || !l.LivroAutores.Any());
+            var livroMaisAntigo = livros.OrderBy(l => l.AnoPublicacao).FirstOrDefault();
+            var livroMaisRecente = livros.OrderByDescending(l => l.AnoPublicacao).FirstOrDefault();
 
-          
+         
+
             int livrosComMultiplosAutores = livros.Count(l => (l.LivroAutores?.Count() ?? 0) > 1);
 
-            
+            var transactions = await _repositoryTransaction.GetAllAsync();
+            var totalCompras = transactions.Count();
 
             var relatorio = new LivroRelatorioDto
             {
                 TotalLivros = totalLivros,
-                TotalAutores = totalAutores,
-                MediaLivrosPorAutor = mediaLivrosPorAutor,
-                NomeAutorMaisLivros = nomeAutorMaisLivros,
-                QtdAutorMaisLivros = qtdAutorMaisLivros,
-                LivroMaisAntigo = livroMaisAntigo?.Livro?.Titulo,
-                AnoLivroMaisAntigo = livroMaisAntigo?.Ano,
-                LivroMaisRecente = livroMaisRecente?.Livro?.Titulo,
-                AnoLivroMaisRecente = livroMaisRecente?.Ano,
-                LivrosSemAutores = livrosSemAutores,
-                LivrosComMultiplosAutores = livrosComMultiplosAutores            
+                TotalAutores = totalAutores,          
+                LivroMaisAntigo = livroMaisAntigo?.Titulo,
+                AnoLivroMaisAntigo = livroMaisAntigo?.AnoPublicacao,
+                LivroMaisRecente = livroMaisRecente?.Titulo,
+                AnoLivroMaisRecente = livroMaisRecente?.AnoPublicacao,
+                LivrosComMultiplosAutores = livrosComMultiplosAutores,
+                TotalCompras = totalCompras 
             };
-
 
             return new List<LivroRelatorioDto> { relatorio };
         }
-
-       
     }
 }

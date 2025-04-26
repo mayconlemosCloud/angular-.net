@@ -1,7 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LivroService } from '../../../services/LivroService';
 
 @Component({
   selector: 'app-dashboard',
-  template: `<div>Dashboard</div>`
+  templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent {}
+export class DashboardComponent implements OnInit {
+  data: any;
+  constructor(private livroService: LivroService) {}
+
+  ngOnInit(): void {
+    this.livroService.getRelatorio().subscribe((response) => {
+      this.data = response[0]; 
+    });
+  }
+}
