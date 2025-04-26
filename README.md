@@ -62,11 +62,25 @@ Certifique-se de que as portas `4200`, `8080`, e `5432` estejam livres antes de 
 
 ```mermaid
 graph TD
-    A[Frontend (Angular)] -->|Requisições HTTP| B[API (ASP.NET Core)]
-    B -->|Consultas e Operações| C[Banco de Dados (PostgreSQL)]
+    A(Frontend Angular) -->|Requisições HTTP| B(API ASP.NET Core)
+    B -->|Consultas e Operações| C(Banco de Dados PostgreSQL)
     C -->|Respostas| B
     B -->|Respostas| A
 ```
+
+## Fluxo da API
+
+```mermaid
+graph TD
+    A[Cliente] -->|Requisições HTTP| B[Controladores]
+    B -->|Validação e Mapeamento| C[Serviços]
+    C -->|Operações CRUD| D[Repositórios]
+    D -->|Acesso| E[(Banco de Dados)]
+```
+
+## Modelo do Banco de Dados
+
+![Modelo do Banco de Dados](modelo/Screenshot_3.png)
 
 ## Demonstração
 
