@@ -58,6 +58,47 @@
 ### Observação
 Certifique-se de que as portas `4200`, `8080`, e `5432` estejam livres antes de iniciar o projeto.
 
+## Como Rodar o Projeto Sem Docker Compose
+
+### Pré-requisitos
+- Node.js e npm instalados.
+- .NET SDK 6.0 instalado.
+- PostgreSQL instalado e configurado.
+
+### Passos
+
+#### 1. Configurar o Banco de Dados
+1. Certifique-se de que o PostgreSQL está em execução.
+2. Crie um banco de dados chamado `postgressdb`.
+3. Configure o usuário e senha como `admin` (ou ajuste no arquivo `appsettings.json` da API).
+
+#### 2. Rodar a API
+1. Navegue até o diretório da API:
+   ```bash
+   cd api
+   ```
+2. Restaure as dependências e execute a API:
+   ```bash
+   dotnet restore
+   dotnet run
+   ```
+3. A API estará disponível em `http://localhost:8080`.
+
+#### 3. Rodar o Frontend
+1. Navegue até o diretório do frontend:
+   ```bash
+   cd front-angular
+   ```
+2. Instale as dependências e inicie o servidor de desenvolvimento:
+   ```bash
+   npm install
+   npm start
+   ```
+3. O frontend estará disponível em `http://localhost:4200`.
+
+### Observação
+Certifique-se de que as portas `4200`, `8080`, e `5432` estejam livres antes de iniciar os serviços.
+
 ## Fluxo do Projeto
 
 ```mermaid
@@ -85,4 +126,10 @@ graph TD
 ## Demonstração
 
 ![Demonstração do Projeto](demo.gif)
+
+### Vídeo de Demonstração
+<video controls width="600">
+  <source src="demo.mp4" type="video/mp4">
+  Seu navegador não suporta a tag de vídeo.
+</video>
 

@@ -8,7 +8,7 @@ RUN npm run build
 # Use Nginx to serve the Angular app
 FROM nginx:alpine
 COPY --from=build /app/dist/front-angular /usr/share/nginx/html
-COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expor a porta padrão do Nginx
 EXPOSE 80
