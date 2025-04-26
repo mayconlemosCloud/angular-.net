@@ -128,8 +128,5 @@ graph TD
 ![Demonstração do Projeto](demo.gif)
 
 ### Vídeo de Demonstração
-<video controls width="600">
-  <source src="midia.mp4" type="video/mp4">
-  Seu navegador não suporta a tag de vídeo.
-</video>
+#### em ./midia.mp4
 
