@@ -1,17 +1,26 @@
-# Use Node.js to build the Angular app
-FROM node:18.19.1 AS build
-WORKDIR /app
-COPY . .
-RUN npm install
-RUN npm run build 
+# Use Node.js 18 
+FROM node:18.19.0
 
-# Use Nginx to serve the Angular app
-FROM nginx:alpine
-COPY --from=build /app/dist/front-angular /usr/share/nginx/html
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+# Install Angular CLI globally
+RUN npm install -g @angular/cli
 
-# Expor a porta padrão do Nginx
-EXPOSE 80
+# Set up the working directory
+WORKDIR /
+RUN mkdir front-angular
+WORKDIR /front-angular
 
-# Comando para iniciar o Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Define environment variables for app creation
+ENV APP_NAME 'front-angular'
+ENV ROUTING 'true'
+ENV STANDALONE 'false'
+ENV STRICT 'true'
+ENV STYLE 'scss'
+
+# Command to create and serve the Angular app
+CMD ng new $APP_NAME --routing=$ROUTING --standalone=$STANDALONE --strict=$STRICT --style=$STYLE \
+    && mv $APP_NAME/* . \
+    && rm -rf $APP_NAME \
+    && ng serve --host 0.0.0.0 --port 4200
+
+# Expose the Angular development server port
+EXPOSE 4200

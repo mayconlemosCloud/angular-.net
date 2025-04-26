@@ -215,7 +215,7 @@ var assemblies = [
     "classes": [
       { "name": "API.Controllers.AssuntoController", "rp": "API_AssuntoController.html", "cl": 0, "ucl": 74, "cal": 74, "tl": 129, "cb": 0, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "API.Controllers.AutorController", "rp": "API_AutorController.html", "cl": 0, "ucl": 74, "cal": 74, "tl": 131, "cb": 0, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "API.Controllers.LivroController", "rp": "API_LivroController.html", "cl": 0, "ucl": 98, "cal": 98, "tl": 170, "cb": 0, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "API.Controllers.LivroController", "rp": "API_LivroController.html", "cl": 0, "ucl": 106, "cal": 106, "tl": 186, "cb": 0, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Program", "rp": "API_Program.html", "cl": 0, "ucl": 25, "cal": 25, "tl": 45, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
@@ -229,14 +229,14 @@ var assemblies = [
       { "name": "Application.Dtos.AutorResponseDto", "rp": "Application_AutorResponseDto.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 8, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Application.Dtos.BookTransactionRequestDto", "rp": "Application_BookTransactionRequestDto.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Application.Dtos.BookTransactionResponseDto", "rp": "Application_BookTransactionResponseDto.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Application.Dtos.LivroRelatorioDto", "rp": "Application_LivroRelatorioDto.html", "cl": 0, "ucl": 27, "cal": 27, "tl": 36, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Application.Dtos.LivroRelatorioDto", "rp": "Application_LivroRelatorioDto.html", "cl": 0, "ucl": 28, "cal": 28, "tl": 28, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Application.Dtos.LivroRequestDto", "rp": "Application_LivroRequestDto.html", "cl": 5, "ucl": 2, "cal": 7, "tl": 13, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Application.Dtos.LivroResponseDto", "rp": "Application_LivroResponseDto.html", "cl": 8, "ucl": 0, "cal": 8, "tl": 27, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Application.Mappings.AutoMapperProfile", "rp": "Application_AutoMapperProfile.html", "cl": 0, "ucl": 43, "cal": 43, "tl": 55, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Application.Services.AssuntoService", "rp": "Application_AssuntoService.html", "cl": 45, "ucl": 0, "cal": 45, "tl": 77, "cb": 12, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Application.Services.AutorService", "rp": "Application_AutorService.html", "cl": 45, "ucl": 0, "cal": 45, "tl": 77, "cb": 12, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Application.Services.LivroService", "rp": "Application_LivroService.html", "cl": 53, "ucl": 55, "cal": 108, "tl": 170, "cb": 12, "tb": 50, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Application.Validations.AssuntoValidator", "rp": "Application_AssuntoValidator.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 14, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Application.Services.LivroService", "rp": "Application_LivroService.html", "cl": 73, "ucl": 66, "cal": 139, "tl": 150, "cb": 24, "tb": 74, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Application.Validations.AssuntoValidator", "rp": "Application_AssuntoValidator.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 13, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Application.Validations.AutorValidator", "rp": "Application_AutorValidator.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 13, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Application.Validations.BookTransactionValidator", "rp": "Application_BookTransactionValidator.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 17, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Application.Validations.LivroAssuntoValidator", "rp": "Application_LivroAssuntoValidator.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 15, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -248,7 +248,7 @@ var assemblies = [
     "classes": [
       { "name": "Domain.Entities.Assunto", "rp": "Domain_Assunto.html", "cl": 2, "ucl": 1, "cal": 3, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Domain.Entities.Autor", "rp": "Domain_Autor.html", "cl": 2, "ucl": 1, "cal": 3, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Domain.Entities.BookTransaction", "rp": "Domain_BookTransaction.html", "cl": 2, "ucl": 2, "cal": 4, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Domain.Entities.BookTransaction", "rp": "Domain_BookTransaction.html", "cl": 3, "ucl": 2, "cal": 5, "tl": 13, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Domain.Entities.Livro", "rp": "Domain_Livro.html", "cl": 6, "ucl": 2, "cal": 8, "tl": 17, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Domain.Entities.LivroAssunto", "rp": "Domain_LivroAssunto.html", "cl": 2, "ucl": 2, "cal": 4, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Domain.Entities.LivroAutor", "rp": "Domain_LivroAutor.html", "cl": 2, "ucl": 2, "cal": 4, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -270,6 +270,12 @@ var riskHotspots = [
     "metrics": [
       { "value": 506, "exceeded": true },
       { "value": 22, "exceeded": true },
+    ]},
+  {
+    "assembly": "Application", "class": "Application.Services.LivroService", "reportPath": "Application_LivroService.html", "methodName": "GetRelatorioAsync()", "methodShortName": "GetRelatorioAsync()", "fileIndex": 0, "line": 112,
+    "metrics": [
+      { "value": 72, "exceeded": true },
+      { "value": 8, "exceeded": false },
     ]},
 ];
 

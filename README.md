@@ -52,7 +52,7 @@
 
 ### Versões Utilizadas
 - **.NET:** 6.0
-- **Angular:** 15
+- **Angular:** 19
 - **PostgreSQL:** Latest (confirmado no arquivo `docker-compose.yml`).
 
 ### Observação
