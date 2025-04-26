@@ -18,17 +18,17 @@
     </button>
   </div>
 
-  <!-- Conteúdo das Abas -->
-  <div *ngIf="tab === 'autores'">
+
+  <div *ngIf="tab === 'autores'" >
     <h2 class="text-xl font-bold mb-2">Cadastro de Autor</h2>
-    <!-- Conteúdo da aba Autores aqui -->
+    <app-autores></app-autores>
   </div>
-  <div *ngIf="tab === 'assuntos'">
+  <div *ngIf="tab === 'assuntos'" >
     <h2 class="text-xl font-bold mb-2">Cadastro de Assunto</h2>
-    <!-- Conteúdo da aba Assuntos aqui -->
+    <app-assuntos></app-assuntos>
   </div>
-  <div *ngIf="tab === 'livro'">
+  <div *ngIf="tab === 'livro'" >
     <h2 class="text-xl font-bold mb-4">Cadastro de Livro</h2>
-    <!-- Conteúdo da aba Livro aqui -->
+    <app-livros></app-livros>
   </div>
 </app-frame>

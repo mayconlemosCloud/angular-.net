@@ -1,0 +1,82 @@
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-full bg-white p-4">
+
+    <!-- First Column: Form -->
+    <div class="col-span-1">
+      <label class="block font-medium mb-1">Título do livro</label>
+      <input [(ngModel)]="novo.titulo" class="border-b p-1 w-full mb-2 focus:outline-none" />
+      
+      <label class="block font-medium mb-1">Editora</label>
+      <input [(ngModel)]="novo.editora" class="border-b p-1 w-full mb-2 focus:outline-none" />
+      
+      <label class="block font-medium mb-1">Edição</label>
+      <input [(ngModel)]="novo.edicao" type="number" class="border-b p-1 w-full mb-2 focus:outline-none" />
+      
+      <label class="block font-medium mb-1">Ano de Publicação</label>
+      <input [(ngModel)]="novo.anoPublicacao" class="border-b p-1 w-full mb-2 focus:outline-none" />
+      
+      <div class="mb-2">
+        <label class="block font-medium mb-1">Autores</label>
+        <ul class="list-disc pl-5 text-gray-800">
+          <li *ngFor="let autor of autores">
+            <label>
+              <input type="checkbox" [checked]="novo.livroAutores.includes(autor.codAu)" (change)="toggleAutor(autor.codAu, $event)" class="mr-2" />
+              {{ autor.nome }}
+            </label>
+          </li>
+        </ul>
+      </div>
+      <div class="mb-2">
+        <label class="block font-medium mb-1">Assuntos</label>
+        <ul class="list-disc pl-5 text-gray-800">
+          <li *ngFor="let assunto of assuntos">
+            <label>
+              <input type="checkbox" [checked]="novo.livroAssuntos.includes(assunto.codAs)" (change)="toggleAssunto(assunto.codAs, $event)" class="mr-2" />
+              {{ assunto.descricao }}
+            </label>
+          </li>
+        </ul>
+      </div>
+      <button (click)="adicionar()" class="text-blue-600 px-4 py-2 mb-3 border border-blue-600 rounded bg-transparent hover:bg-blue-50 w-full lg:w-auto">Adicionar</button>
+    </div>
+
+    <!-- Second Column: Table -->
+    <div class="col-span-1 overflow-x-auto">
+      <table class="table-auto w-full text-left text-gray-800 border-collapse table-fixed">
+        <thead>
+          <tr>
+            <th class="border-b pb-4 px-4 w-1/4">Título</th>
+            <th class="border-b pb-4 px-4 w-1/4">Editora</th>
+            <th class="border-b pb-4 px-4 w-1/6">Edição</th>
+            <th class="border-b pb-4 px-4 w-1/6">Ano de Publicação</th>
+            <th class="border-b pb-4 px-4 w-1/6">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let it of data; let i = index" class="border-b hover:bg-gray-50">
+            <ng-container *ngIf="editandoIndex !== i; else editando">
+              <td class="py-3 px-4">{{ it.titulo }}</td>
+              <td class="py-3 px-4">{{ it.editora }}</td>
+              <td class="py-3 px-4">{{ it.edicao }}</td>
+              <td class="py-3 px-4">{{ it.anoPublicacao }}</td>
+              <td class="py-3 px-4">
+                <button (click)="editar(i)" class="text-yellow-600 text-xs hover:underline bg-transparent p-0 border-0">Editar</button>
+                <button (click)="remover(i)" class="ml-2 text-red-500 text-xs hover:underline bg-transparent p-0 border-0">Remover</button>
+              </td>
+            </ng-container>
+            <ng-template #editando>
+              <td class="py-3 px-4"><input [(ngModel)]="it.titulo" placeholder="Título do livro" class="border-b p-1 w-full" /></td>
+              <td class="py-3 px-4"><input [(ngModel)]="it.editora" placeholder="Editora" class="border-b p-1 w-full" /></td>
+              <td class="py-3 px-4"><input [(ngModel)]="it.edicao" type="number" placeholder="Edição" class="border-b p-1 w-full" /></td>
+              <td class="py-3 px-4"><input [(ngModel)]="it.anoPublicacao" placeholder="Ano de Publicação" class="border-b p-1 w-full" /></td>
+              <td class="py-3 px-4">
+                <button (click)="salvar(i)" class="text-indigo-600 text-xs hover:underline bg-transparent p-0 border-0">Salvar</button>
+                <button (click)="cancelar()" class="ml-1 text-gray-500 text-xs hover:underline bg-transparent p-0 border-0">Cancelar</button>
+              </td>
+            </ng-template>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+</div>
+

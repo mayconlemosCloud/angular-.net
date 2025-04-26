@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 @import "tailwindcss";
+@import 'ngx-toastr/toastr';
 
 
 
@@ -21,3 +22,4 @@ html, body {
     linear-gradient(to bottom, #cbd5e1 1px, transparent 1px);
   background-size: 32px 32px;
 }
+

@@ -1,0 +1,24 @@
+
+  <div class="flex">
+
+    <div class="flex-1">
+      <input [(ngModel)]="novo" placeholder="Descrição do assunto" class="border-b p-1 w-full mb-2 focus:outline-none" />
+      <button (click)="adicionar()" class="text-blue-600 px-2 py-1 mb-3 border border-blue-600 rounded-none bg-transparent hover:bg-blue-50">Adicionar</button>
+      <ul class="list-disc pl-5 text-gray-800">
+        <li *ngFor="let it of data; let i = index" class="flex items-center mb-1">
+          <ng-container *ngIf="editandoIndex !== i; else editando">
+            <span>{{it.descricao}}</span>            
+            <button *ngIf="(it.codAs || !it.codAs) && editandoIndex === null" (click)="editar(i)" class="ml-2 text-yellow-600 text-xs hover:underline bg-transparent p-0 border-0">Editar</button>
+            <button (click)="remover(i)" class="ml-2 text-red-500 text-xs hover:underline bg-transparent p-0 border-0">Remover</button>
+          </ng-container>
+          <ng-template #editando>
+            <input [(ngModel)]="it.descricao" class="border-b p-1 w-32 mr-2" />
+            <button *ngIf="it.codAs" (click)="salvar(i)" class="text-indigo-600 text-xs hover:underline bg-transparent p-0 border-0">Salvar</button>
+            <button (click)="cancelar()" class="ml-1 text-gray-500 text-xs hover:underline bg-transparent p-0 border-0">Cancelar</button>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
