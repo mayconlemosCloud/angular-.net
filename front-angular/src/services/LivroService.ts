@@ -23,4 +23,8 @@ export class LivroService implements RepositoryType {
   delete(id: any) {
     return this.repository.delete(id);
   } 
+
+  postTransaction(data: any) {
+    return this.repository.postTransaction(data);
+  }
 }

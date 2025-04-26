@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Dtos;
 using Application.Services.Interfaces;
 using System.Threading.Tasks;
-using Microsoft.Reporting.NETCore; // Adicione este using
+using Microsoft.Reporting.NETCore;
 
 namespace API.Controllers
 {
@@ -126,6 +126,29 @@ namespace API.Controllers
                 return StatusCode(500, new { message = ex.Message });
             }
         }
+
+        [HttpPost("transaction")]
+        public async Task<IActionResult> AddTransacao([FromBody] BookTransactionRequestDto request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var transaction = await _livroService.AddTransacaoAsync(request);
+                return CreatedAtAction(nameof(GetById), new { id = transaction.Codtr }, transaction);
+            }
+            catch (FluentValidation.ValidationException ex)
+            {
+                return BadRequest(new { message = "Validation failed", errors = ex.Errors });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+        
 
         [HttpGet("relatorio")]
         public async Task<IActionResult> GetRelatorioRdlc([FromServices] ILivroService livroService)

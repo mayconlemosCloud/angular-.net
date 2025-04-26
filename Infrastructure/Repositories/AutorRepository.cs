@@ -24,7 +24,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Autor?> GetByIdAsync(int id)
         {
-            // Inclui livros ao buscar autor por id
+           
             return await _context.Autores
                 .Include(a => a.LivroAutores)
                     .ThenInclude(la => la.Livro)

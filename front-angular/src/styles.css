@@ -23,3 +23,8 @@ html, body {
   background-size: 32px 32px;
 }
 
+/* Scoped modal background style */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+}
+

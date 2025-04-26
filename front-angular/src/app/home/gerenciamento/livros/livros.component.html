@@ -14,6 +14,9 @@
       <label class="block font-medium mb-1">Ano de Publicação</label>
       <input [(ngModel)]="novo.anoPublicacao" class="border-b p-1 w-full mb-2 focus:outline-none" />
       
+      <label class="block font-medium mb-1">Preço</label>
+      <input [(ngModel)]="novo.preco" (input)="formatarPreco($event)" class="border-b p-1 w-full mb-2 focus:outline-none" />
+      
       <div class="mb-2">
         <label class="block font-medium mb-1">Autores</label>
         <ul class="list-disc pl-5 text-gray-800">
@@ -48,6 +51,7 @@
             <th class="border-b pb-4 px-4 w-1/4">Editora</th>
             <th class="border-b pb-4 px-4 w-1/6">Edição</th>
             <th class="border-b pb-4 px-4 w-1/6">Ano de Publicação</th>
+            <th class="border-b pb-4 px-4 w-1/6">Preço</th>
             <th class="border-b pb-4 px-4 w-1/6">Ações</th>
           </tr>
         </thead>
@@ -58,9 +62,13 @@
               <td class="py-3 px-4">{{ it.editora }}</td>
               <td class="py-3 px-4">{{ it.edicao }}</td>
               <td class="py-3 px-4">{{ it.anoPublicacao }}</td>
+              <td class="py-3 px-4">{{ it.preco | currency:'BRL':'symbol':'1.2-2' }}</td>
               <td class="py-3 px-4">
                 <button (click)="editar(i)" class="text-yellow-600 text-xs hover:underline bg-transparent p-0 border-0">Editar</button>
                 <button (click)="remover(i)" class="ml-2 text-red-500 text-xs hover:underline bg-transparent p-0 border-0">Remover</button>
+                <button (click)="comprarLivro(it)" class="ml-2 text-green-600 text-xs hover:underline bg-transparent p-0 border-0 flex items-center">
+                  <span class="material-icons text-sm mr-1">shopping_cart</span> Comprar
+                </button>
               </td>
             </ng-container>
             <ng-template #editando>
@@ -68,6 +76,7 @@
               <td class="py-3 px-4"><input [(ngModel)]="it.editora" placeholder="Editora" class="border-b p-1 w-full" /></td>
               <td class="py-3 px-4"><input [(ngModel)]="it.edicao" type="number" placeholder="Edição" class="border-b p-1 w-full" /></td>
               <td class="py-3 px-4"><input [(ngModel)]="it.anoPublicacao" placeholder="Ano de Publicação" class="border-b p-1 w-full" /></td>
+              <td class="py-3 px-4"><input [(ngModel)]="it.preco" placeholder="Preço" class="border-b p-1 w-full" /></td>
               <td class="py-3 px-4">
                 <button (click)="salvar(i)" class="text-indigo-600 text-xs hover:underline bg-transparent p-0 border-0">Salvar</button>
                 <button (click)="cancelar()" class="ml-1 text-gray-500 text-xs hover:underline bg-transparent p-0 border-0">Cancelar</button>
@@ -78,5 +87,21 @@
       </table>
     </div>
 
+</div>
+
+<div *ngIf="mostrarModal" class="fixed inset-0 modal-backdrop flex justify-center items-center z-50">
+  <div class="bg-white rounded-lg p-6 w-96">
+    <h2 class="text-lg font-semibold mb-4">Efetuar Compra</h2>
+    <label for="formaCompra" class="block font-medium mb-2">Selecione a forma de compra:</label>
+    <select id="formaCompra" [(ngModel)]="formaCompra" class="border p-2 w-full mb-4">
+      <option value="online">Online</option>
+      <option value="lojaFisica">Loja Física</option>
+      <option value="outro">Outro</option>
+    </select>
+    <div class="flex justify-end space-x-2">
+      <button (click)="fecharModal()" class="px-4 py-2 border border-gray-300 rounded bg-gray-100 hover:bg-gray-200">Cancelar</button>
+      <button (click)="confirmarCompra()" class="px-4 py-2 border border-blue-600 rounded bg-blue-600 text-white hover:bg-blue-700">Confirmar</button>
+    </div>
+  </div>
 </div>
 

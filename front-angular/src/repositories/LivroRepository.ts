@@ -31,4 +31,8 @@ export class LivroRepository {
   delete(id: any): Observable<any> {
     return this.http.delete<any>(`${this.rota}/${id}`);
   }
+
+  postTransaction(data: any): Observable<any> {
+    return this.http.post<any>(`${this.rota}/transaction`, data);
+  }
 }

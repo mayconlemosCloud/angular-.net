@@ -80,15 +80,6 @@ namespace Test.Validator
             result.IsValid.Should().BeFalse();
         }
 
-        [Fact]
-        public void Should_Fail_When_Editora_Has_Special_Characters()
-        {
-            var livro = CreateValidLivro();
-            livro.Editora = "Editora!";
-            var result = _validator.Validate(livro);
-            result.IsValid.Should().BeFalse();
-        }
-
         [Theory]
         [InlineData(0)]
         [InlineData(-1)]

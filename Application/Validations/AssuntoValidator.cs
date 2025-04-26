@@ -1,7 +1,6 @@
 using FluentValidation;
 using Domain.Entities;
 
-
 namespace Application.Validations;
 public class AssuntoValidator : AbstractValidator<Assunto>
 {

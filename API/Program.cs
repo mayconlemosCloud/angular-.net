@@ -4,19 +4,19 @@ using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 builder.Services.AddControllers();
 
-// Configuração do FluentValidation (apenas ativação do pipeline)
+
 builder.Services.AddFluentValidationAutoValidation();
 
-// Configurar a injeção de dependência usando a camada IOC
+
 builder.Services.AddInfrastructure(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
 
-// Adiciona CORS para permitir qualquer origem
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -29,7 +29,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

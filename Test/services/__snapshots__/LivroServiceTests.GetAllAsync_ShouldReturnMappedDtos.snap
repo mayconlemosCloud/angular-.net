@@ -5,6 +5,7 @@
     "Editora": "Editora 1",
     "Edicao": 1,
     "AnoPublicacao": "2020",
+    "Preco": 0.0,
     "Autores": null,
     "Assuntos": null
   },
@@ -14,6 +15,7 @@
     "Editora": "Editora 2",
     "Edicao": 2,
     "AnoPublicacao": "2021",
+    "Preco": 0.0,
     "Autores": null,
     "Assuntos": null
   },
@@ -23,6 +25,7 @@
     "Editora": "Editora 3",
     "Edicao": 3,
     "AnoPublicacao": "2022",
+    "Preco": 0.0,
     "Autores": null,
     "Assuntos": null
   }

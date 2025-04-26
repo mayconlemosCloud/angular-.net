@@ -44,6 +44,12 @@ namespace Application.Mappings
             CreateMap<Autor, AutorResponseDto>();
             CreateMap<AssuntoRequestDto, Assunto>();
             CreateMap<Assunto, AssuntoResponseDto>();
+
+            CreateMap<BookTransactionRequestDto, BookTransaction>()
+                .ForMember(dest => dest.LivroCodl, opt => opt.MapFrom(src => src.LivroCodl))
+                .ForMember(dest => dest.CriadoEm, opt => opt.MapFrom(src => DateTime.Now));
+
+            CreateMap<BookTransaction, BookTransactionResponseDto>();
         }
     }
 }

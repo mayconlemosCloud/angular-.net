@@ -5,18 +5,23 @@ import { AssuntoService } from '../../../../services/AssuntoService';
 import { ToastrService } from 'ngx-toastr';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DecimalPipe, CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-livros',
   templateUrl: './livros.component.html',
-  imports: [NgFor, FormsModule, NgIf],
+  imports: [NgFor, FormsModule, NgIf, CurrencyPipe],
+  providers: [CurrencyPipe]
 })
 export class LivrosComponent implements OnInit {
-  novo: any = { titulo: '', editora: '', edicao: 0, anoPublicacao: '', livroAutores: [], livroAssuntos: [] };
+  novo: any = { titulo: '', editora: '', edicao: 0, anoPublicacao: '', preco: 0, livroAutores: [], livroAssuntos: [] };
   data: any[] = [];
   autores: any[] = [];
   assuntos: any[] = [];
   editandoIndex: number | null = null;
+  mostrarModal: boolean = false;
+  formaCompra: string = 'online';
+  livroSelecionado: any;
 
   constructor(
     private livroService: LivroService,
@@ -73,10 +78,12 @@ export class LivrosComponent implements OnInit {
       return;
     }
 
-    this.livroService.create(this.novo).subscribe({
+    const novoLivro = { ...this.novo, preco: parseFloat(this.novo.preco.toString()) };
+
+    this.livroService.create(novoLivro).subscribe({
       next: () => {
         this.toastr.success('Operação realizada com sucesso!');
-        this.novo = { titulo: '', editora: '', edicao: 0, anoPublicacao: '', livroAutores: [], livroAssuntos: [] };
+        this.novo = { titulo: '', editora: '', edicao: 0, anoPublicacao: '', preco: 0, livroAutores: [], livroAssuntos: [] };
         this.buscar();
       },
       error: () => this.toastr.error('Ocorreu um erro. Tente novamente.')
@@ -111,6 +118,7 @@ export class LivrosComponent implements OnInit {
         editora: livro.editora,
         edicao: livro.edicao,
         anoPublicacao: livro.anoPublicacao,
+        preco: parseFloat(livro.preco.toString()),
         livroAutores: livro.autores.map((autor: any) => autor.codAu),
         livroAssuntos: livro.assuntos.map((assunto: any) => assunto.codAs),
       };
@@ -157,6 +165,42 @@ export class LivrosComponent implements OnInit {
       this.novo.livroAssuntos.push(codAs);
     } else {
       this.novo.livroAssuntos = this.novo.livroAssuntos.filter((id: number) => id !== codAs);
+    }
+  }
+
+  formatarPreco(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let valor = input.value.replace(/[^\d,]/g, '').replace(',', '.');
+    this.novo.preco = parseFloat(valor) || 0;
+    input.value = new DecimalPipe('pt-BR').transform(this.novo.preco, '1.2-2') || '';
+  }
+
+  comprarLivro(livro: any) {
+    this.livroSelecionado = livro;
+    this.mostrarModal = true;
+  }
+
+  fecharModal() {
+    this.mostrarModal = false;
+    this.formaCompra = 'online';
+  }
+
+  confirmarCompra() {
+    if (this.livroSelecionado && this.formaCompra.trim()) {
+      const payload = {
+        livroCodl: this.livroSelecionado.codl,
+        formaDeCompra: this.formaCompra
+      };
+
+      this.livroService.postTransaction(payload).subscribe({
+        next: () => {
+          this.toastr.success('Compra realizada com sucesso!');
+          this.fecharModal();
+        },
+        error: () => this.toastr.error('Erro ao realizar a compra. Tente novamente.')
+      });
+    } else {
+      this.toastr.error('Selecione um livro e uma forma de compra válida.');
     }
   }
 }

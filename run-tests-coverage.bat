@@ -11,7 +11,7 @@ REM Remover relatório de cobertura antigo
 rmdir /s /q coverage-report 2>nul
 
 REM Run tests with coverage
-dotnet test --collect:"XPlat Code Coverage" --settings coverage.runsettings
+dotnet test --collect:"XPlat Code Coverage" 
 
 REM Gerar relatório excluindo os assemblies IOC, Infrastructure, Program e Application.Mappings.AutoMapperProfile
 dotnet tool install -g dotnet-reportgenerator-globaltool >nul 2>&1

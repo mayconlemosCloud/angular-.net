@@ -8,6 +8,7 @@ public class LivroResponseDto
     public string Editora { get; set; }
     public int Edicao { get; set; }
     public string AnoPublicacao { get; set; }
+    public decimal Preco { get; set; }    
     public List<AutorDto> Autores { get; set; }
     public List<AssuntoDto> Assuntos { get; set; }
 }

@@ -12,14 +12,26 @@ namespace Application.Services
     public class LivroService : ILivroService
     {
         private readonly IBaseRepository<Livro> _repository;
+
+        private readonly IBaseRepository<BookTransaction> _repositoryTransaction;
         private readonly IMapper _mapper;
         private readonly IValidator<Livro> _validator;
+        private readonly IValidator<BookTransaction> _validatorTransaction;
 
-        public LivroService(IBaseRepository<Livro> repository, IMapper mapper, IValidator<Livro> validator)
+        public LivroService(IBaseRepository<Livro> repository, IMapper mapper, IValidator<Livro> validator, IBaseRepository<BookTransaction> repositoryTransaction, IValidator<BookTransaction> validatorTransaction)
+        {
+            _repositoryTransaction = repositoryTransaction;
+            _validatorTransaction = validatorTransaction;
+            _repositoryTransaction = repositoryTransaction;
+            _validatorTransaction = validatorTransaction;
         {
             _repository = repository;
             _mapper = mapper;
             _validator = validator;
+            _repositoryTransaction = repositoryTransaction;
+            _validatorTransaction = validatorTransaction;
+            
+        }
         }
 
         public async Task<IEnumerable<LivroResponseDto>> GetAllAsync()
@@ -73,13 +85,25 @@ namespace Application.Services
             await _repository.DeleteAsync(livro.Codl);
             return true;
         }
+        public async Task<BookTransactionResponseDto> AddTransacaoAsync(BookTransactionRequestDto request)
+        {
+            var transaction = _mapper.Map<BookTransaction>(request);
+            var validationResult = _validatorTransaction.Validate(transaction);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+            await _repositoryTransaction.AddAsync(transaction);
+            return _mapper.Map<BookTransactionResponseDto>(transaction);
+        }
+        
 
         public async Task<IEnumerable<LivroRelatorioDto>> GetRelatorioAsync()
         {
             var livros = (await _repository.GetAllAsync()).ToList();
             var totalLivros = livros.Count;
 
-            // Total de autores distintos
+       
             var totalAutores = livros
                 .SelectMany(l => l.LivroAutores ?? Enumerable.Empty<LivroAutor>())
                 .Select(la => la.Autor?.CodAu)
@@ -87,7 +111,7 @@ namespace Application.Services
                 .Distinct()
                 .Count();
 
-            // Média de livros por autor
+            
             var livrosPorAutor = livros
                 .SelectMany(l => l.LivroAutores ?? Enumerable.Empty<LivroAutor>())
                 .GroupBy(la => la.Autor?.CodAu)
@@ -95,7 +119,7 @@ namespace Application.Services
                 .ToList();
             double mediaLivrosPorAutor = livrosPorAutor.Count > 0 ? livrosPorAutor.Average() : 0;
 
-            // Autor com mais livros
+           
             var autorMaisLivros = livros
                 .SelectMany(l => l.LivroAutores ?? Enumerable.Empty<LivroAutor>())
                 .GroupBy(la => la.Autor)
@@ -104,7 +128,7 @@ namespace Application.Services
             string nomeAutorMaisLivros = autorMaisLivros?.Key?.Nome ?? "";
             int qtdAutorMaisLivros = autorMaisLivros?.Count() ?? 0;
 
-            // Livro mais antigo/recente
+ 
             var livrosComAno = livros
                 .Where(l => int.TryParse(l.AnoPublicacao, out _))
                 .Select(l => new { Livro = l, Ano = int.Parse(l.AnoPublicacao) })
@@ -114,10 +138,10 @@ namespace Application.Services
 
           
 
-            // Livros sem autores
+          
             int livrosSemAutores = livros.Count(l => l.LivroAutores == null || !l.LivroAutores.Any());
 
-            // Livros com múltiplos autores
+          
             int livrosComMultiplosAutores = livros.Count(l => (l.LivroAutores?.Count() ?? 0) > 1);
 
             
@@ -140,5 +164,7 @@ namespace Application.Services
 
             return new List<LivroRelatorioDto> { relatorio };
         }
+
+       
     }
 }
