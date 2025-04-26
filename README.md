@@ -58,6 +58,16 @@
 ### Observação
 Certifique-se de que as portas `4200`, `8080`, e `5432` estejam livres antes de iniciar o projeto.
 
+## Fluxo do Projeto
+
+```mermaid
+graph TD
+    A[Frontend (Angular)] -->|Requisições HTTP| B[API (ASP.NET Core)]
+    B -->|Consultas e Operações| C[Banco de Dados (PostgreSQL)]
+    C -->|Respostas| B
+    B -->|Respostas| A
+```
+
 ## Demonstração
 
 ![Demonstração do Projeto](demo.gif)
